@@ -5,7 +5,7 @@ const API="https://dummyjson.com/products/category/"
 
 import { useParams } from "react-router-dom"
 
-const Categorias = () => {
+const Categorias = ({carrito, agregarAlCarrito}) => {
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
         const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
         const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
@@ -61,7 +61,11 @@ const Categorias = () => {
         <div className='row'>
             {datos.map((item)=>(
 
-                <CardProducts key={item.id} item={item}/>
+               <CardProducts 
+                key={item.id} 
+                item={item} 
+                carrito={carrito} 
+                agregarAlCarrito={agregarAlCarrito}/>
             
             ))}
 

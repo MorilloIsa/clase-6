@@ -1,11 +1,19 @@
 
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../util/util';
-const CardProducts = ({item}) => {
+const CardProducts = ({item, carrito, agregarAlCarrito}) => {
+
+  const enCarrito = carrito.find(producto => producto.id === item.id);
+
   return (
    <div className='col-6 col-sm-6 col-md-4 col-lg-3 mb-4'>
                <div className='card h-100'>
                 <div className='card-header'>
+                  {enCarrito && (
+                        <span className="position-absolute top-0 end-0 badge rounded-pill text-bg-danger fs-4 m-2">
+                            {enCarrito.cantidad}
+                        </span>
+                    )}
                     <img src={item.thumbnail} alt={item.title} className='img-fluid' /> 
                 </div>
                
@@ -24,6 +32,15 @@ const CardProducts = ({item}) => {
                     <Link to={`/detalle/${item.id}/${item.title}`} className='btn btn-outline-warning btn-sm'>
                         Detalle
                     </Link>
+                    <hr/>
+
+                    <div>
+
+                      <button className='btn btn-outline-danger btn-sm' onClick={()=>agregarAlCarrito(item)}>
+                    + Agregar al carrito
+                      </button>
+
+                    </div>
                 </div>
             
                 </div> 

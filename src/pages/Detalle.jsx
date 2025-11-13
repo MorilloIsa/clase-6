@@ -1,16 +1,18 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import React, { useEffect, useState } from 'react'
 import { formatCurrency } from "../util/util";
 const API="https://dummyjson.com/products/"
 
-const Detalle = () => {
+const Detalle = ({carrito, agregarAlCarrito}) => {
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
     const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
     const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
     const parametros=useParams()
     const URI=API+parametros.id
+    const navigate = useNavigate();
 
     const getDatos = async () => {
+
             try {
                 const response = await fetch(URI);
                 if (!response.ok) {
@@ -65,7 +67,14 @@ const Detalle = () => {
 
 
   return (
-    <div className="container">
+    <div className="container py-4">
+
+         {/* Botón Volver */}
+            <div className="d-flex justify-content-end mb-3">
+                <button onClick={() => navigate(-1)} className="btn btn-secondary">
+                    ← Volver
+                </button>
+            </div>
         
         <h4 className="text-center py-4">Detalle del Producto {parametros.titulo}</h4>
         
