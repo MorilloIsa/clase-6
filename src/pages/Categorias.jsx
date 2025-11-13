@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react'
-
 import CardProducts from '../components/CardProducts';
-const API="https://dummyjson.com/products/category/laptops"
+const API="https://dummyjson.com/products/category/"
 
-const Laptops = () => {
+
+import { useParams } from "react-router-dom"
+
+const Categorias = () => {
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
         const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
         const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
-        
+        const parametro=useParams()
+        const URI=API+parametro.cat
+
         const getDatos = async () => {
             try {
-                const response = await fetch(API);
+                const response = await fetch(URI);
                 if (!response.ok) {
                     throw new Error("HTTP error! status: " + response.status);
                 }
                 const data = await response.json();
     
                 setDatos(data.products);
-                //console.log("Mostrar los datos del api")
-                //console.log(data)
+               // console.log("Mostrar los datos del api")
+               // console.log(data)
     
                 setLoading(false);
             } catch (err) {
@@ -28,7 +32,7 @@ const Laptops = () => {
         };
         useEffect(() => {
             getDatos();
-        }, []);
+        }, [parametro.cat]);
     
         if (loading) {
             return (
@@ -49,17 +53,16 @@ const Laptops = () => {
                 </div>
             );
         }
-  return (
-    <div>
-        
-         return (
-    <div className='container'>
-        <h4 className='text-center py-4'>Laptops</h4>
+   
+ 
+ return (
+     <div className='container'>
+        <h4 className='text-center py-4'>Movil</h4>
         <div className='row'>
             {datos.map((item)=>(
 
-             <CardProducts key={item.id} item={item}/>
-
+                <CardProducts key={item.id} item={item}/>
+            
             ))}
 
              
@@ -68,9 +71,7 @@ const Laptops = () => {
         
         </div>
   )
-
-    </div>
-  )
 }
 
-export default Laptops
+
+export default Categorias

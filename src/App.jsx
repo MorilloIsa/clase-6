@@ -7,6 +7,8 @@ import Header from './components/header'
 import Movil from './pages/Movil'
 import Laptops from './pages/Laptops'
 import Beauty from './pages/Beauty'
+import Detalle from './pages/Detalle'
+import Categorias from './pages/Categorias'
 
 
 const App = () => {
@@ -22,6 +24,8 @@ const App = () => {
       <Route path='/laptops' element={<Laptops/>}/>
       <Route path='/beauty' element={<Beauty/>}/>
       <Route path='/error404' element={<Error404/>}/>
+      <Route path='/detalle/:id/:titulo' element={<Detalle/>}/>
+      <Route path='/categorias/:cat' element={<Categorias/>}/>
 
 
       </Routes>

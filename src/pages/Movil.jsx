@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { formatCurrency } from '../util/util';
-
+import CardProducts from '../components/CardProducts';
 const API="https://dummyjson.com/products/category/smartphones"
+
 const Movil = () => {
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
     const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
@@ -16,8 +16,8 @@ const Movil = () => {
             const data = await response.json();
 
             setDatos(data.products);
-            console.log("Mostrar los datos del api")
-            console.log(data)
+           // console.log("Mostrar los datos del api")
+           // console.log(data)
 
             setLoading(false);
         } catch (err) {
@@ -53,27 +53,9 @@ const Movil = () => {
         <h4 className='text-center py-4'>Movil</h4>
         <div className='row'>
             {datos.map((item)=>(
-            <div className='col-6 col-sm-6 col-md-4 col-lg-3 mb-4'>
-               <div className='card h-100'>
-                <div className='card-header'>
-                    <img src={item.thumbnail} alt={item.title} className='img-fluid' /> 
-                </div>
-               
-                <div className='card-body text-center'>
-                   <p className='fs-5 fw-bold'>{item.title}</p> 
-                   <p className='text-muted'>Marca: {item.brand}</p>
-                   <p className='fw-bold fs-4 text-danger'> {formatCurrency(item.price)}</p>
-                </div>
-                <div className='card-footer text-center'>
-                    <button className='btn btn-outline-info btn-sm me-3'>
-                        Modal
-                    </button>
-                    <button className='btn btn-outline-warning btn-sm'>
-                        Detalle
-                    </button>
-                </div>
-                </div> 
-            </div>
+
+                <CardProducts key={item.id} item={item}/>
+            
             ))}
 
              

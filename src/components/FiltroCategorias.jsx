@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import CardProducts from '../components/CardProducts';
+import { Link } from 'react-router-dom';
+const API="https://dummyjson.com/products/categories"
 
-const API="https://dummyjson.com/products/category/beauty"
-const Beauty = () => {
+const FiltroCategorias = () => {
     const [datos, setDatos] = useState([]); //datos: Almacena los productos recibidos de la API.
     const [loading, setLoading] = useState(true); //loading: Indica si la carga está en progreso (para mostrar un spinner).
     const [error, setError] = useState(null); //error: Guarda el mensaje de error si la petición falla.
-    
-    const getDatos = async () => {
+
+const getDatos = async () => {
         try {
             const response = await fetch(API);
             if (!response.ok) {
@@ -15,9 +15,9 @@ const Beauty = () => {
             }
             const data = await response.json();
 
-            setDatos(data.products);
-            //console.log("Mostrar los datos del api")
-            //console.log(data)
+            setDatos(data);
+           // console.log("Mostrar los datos del api")
+           // console.log(data)
 
             setLoading(false);
         } catch (err) {
@@ -48,20 +48,24 @@ const Beauty = () => {
             </div>
         );
     }
-  return (
-    <div className='container'>
-        <h4 className='text-center py-4'>Beauty</h4>
-        <div className='row'>
-            {datos.map((item)=>(
-             <CardProducts key={item.id} item={item}/>
-            ))}
 
-             
-        </div>
-       
-        
-        </div>
+
+
+
+
+
+  return (
+
+    <>
+    {datos.map((item)=>(
+
+         <li><Link to={`/categorias/${item.slug}`} className="dropdown-item" href="#">{item.name}</Link></li>
+
+    ))}
+    </>
+
+    
   )
 }
 
-export default Beauty
+export default FiltroCategorias
